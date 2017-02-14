@@ -18,3 +18,6 @@ Connect login: Use OIDC adapter extension for login on Firefox.
 
     https://github.com/Sparika/WebConnect
     https://addons.mozilla.org/fr/firefox/addon/web-identity-management/
+
+
+A simple example is available here: https://contactsapp.rethink3.orange-labs.fr/
