@@ -23,14 +23,15 @@ function buildUidArray(record)
 function addProfileEvents() {
     $("#reTHINKCheck").change(function(){ toggleFields();} );
     $('.btnaddcontact').on('click', addContact);
-   if ($("#GUIDCheck")[0])
+ /*  if ($("#GUIDCheck")[0])
     {
         $("#GUIDCheck").change(function(){ toggleFields();} );
         $('.btnpublish').on('click', publishGUID);
     }
     else {
         $('.btnunpublish').on('click', unpublishGUID);
-    }
+    }*/
+    $('.btnpublish').on('click', publishGUID);
 }
 
 function toggleFields()
@@ -40,13 +41,13 @@ function toggleFields()
     else
         $("#divInputReTHINKID").hide();
     // GUID Checkbox is only present when there is no GUID.
-    if ($("#GUIDCheck")[0])
+ /*   if ($("#GUIDCheck")[0])
     {
         if ($("#GUIDCheck")[0].checked == true)
             $("#divInputGUID").show();
         else
             $("#divInputGUID").hide();
-    }
+    }*/
 };
 
 function remove(id, domain)
@@ -92,21 +93,21 @@ function getUserInfo() {
 
 function publishGUID(event)
 {
-//    event.preventDefault(); 
-    if (($("#GUIDCheck")[0].checked == true) && ($('#userGUID')[0].value == "" || $('#inputPrKey')[0].value == ""))
+    event.preventDefault(); 
+/*    if (($("#GUIDCheck")[0].checked == true) && ($('#userGUID')[0].value == "" || $('#inputPrKey')[0].value == ""))
     {
         return ;
     }
-    var value = $('#userGUID')[0].value;
+    var value = $('#userGUID')[0].value;*/
     $.ajax({
         type: 'PUT',
         data: "{}",
-        url: '/users/globalcontact/' + value,
+        url: '/users/globalcontact/',// + value,
         dataType: 'JSON'
     }).done(function (response) {
         // Check for successful (blank) response
         if (response.msg === '') {
-            // Clear the form inputs
+            location.reload();
         }
         else { alert('Error: ' + response.msg); }  // If something goes wrong, alert the error message that our service returned
     });

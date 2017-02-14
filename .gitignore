@@ -1,2 +1,5 @@
 # Dependency directories
 node_modules/
+config/configapp.js
+setup_proxy.js
+

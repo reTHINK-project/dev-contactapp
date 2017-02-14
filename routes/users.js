@@ -244,13 +244,13 @@ router.post('/removeContactFromGlobal', function (req, res, next) {
 router.put('/globalcontact/', function (req, res, next) {
   var guid = req.params.guid;
   var loggedUser = req.user.local.guid;
-  initRecord();
+ initRecord();
   _globalRegistryRecord
   var currentUser = req.user;
 
 
-    _globalRegistryRecord.userIDs.push({ "uid": req.user.local.email, "domain": req.currentDomain });
-    _globalRegistryRecord.defaults = ({ "voice": "a", "chat": "b", "video": "c" })
+    _globalRegistryRecord.legacyIDs.push({ "id": req.user.local.email, "category": req.currentDomain });
+//    _globalRegistryRecord.defaults = ({ "voice": "a", "chat": "b", "video": "c" })
     var jwt = _signGlobalRegistryRecord();
     var urlRequest = req.globalRegistryUrl  + '/guid/' + _globalRegistryRecord.guid;
 
@@ -266,7 +266,7 @@ router.put('/globalcontact/', function (req, res, next) {
     }, function (error, response, body) {
       if (response.statusCode != 200) {
         console.log(JSON.stringify(response));
-        //res.send({ msg: error });
+        res.send({ msg: error });
       } else {
         console.log(JSON.stringify(response));
         var guid = response.request.uri.path.replace('/guid/', '');
@@ -278,7 +278,7 @@ router.put('/globalcontact/', function (req, res, next) {
           user.local.privateKey = privateKey;
           console.log(user);
           user.save(console.log);
-          res.redirect('/home');
+          res.send({ msg: '' });
         });
       }
     });
