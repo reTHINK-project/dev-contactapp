@@ -1,0 +1,32 @@
+extends ../node_modules/jade-bootstrap/_bootstrap
+append styles
+    // Bootstrap theme
+    +bootswatch("cerulean")
+    // Custom styles for this template
+    link(href='../css/theme.css', rel='stylesheet')
+    // Custom styles for this template
+    link(href='../css/navbar-fixed-top.css', rel='stylesheet')
+    link(href='../css/style.css', rel='stylesheet')
+    //script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+    script(src='../javascripts/authConnect.js')
+    script(src='../javascripts/lib/wid_api.js')
+append body
+    div.container.text-center
+        h1 Contact Management
+      div.container
+        div.col-sm-6.col-sm-offset-3
+            h1 Login
+            a(class="btn btn-default loginbtn btn-lg" href="#" onclick="authConnect();")
+                img(src="icon64.png") 
+                span Connect
+            form(action="/login" method="POST")
+                div.form-group
+                    label Email
+                    input.form-control(type='email', name="email", placeholder='Email address', required='true', autofocus='')
+                div.form-group
+                    label Password
+                    input.form-control(type='password',name="password", placeholder='Password', required='true', autofocus='')
+                button(type="submit" class="btn btn-warning") Login
+            hr 
+            p 
+                a.register(href="/signup") Register 

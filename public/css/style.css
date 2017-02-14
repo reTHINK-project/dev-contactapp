@@ -1,0 +1,65 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: inherit;
+}
+a {
+  color: #00B7FF;
+}
+#rethink {
+  display: none !important;
+}
+.modal-body {
+  overflow: hidden;
+}
+.videoSection video {
+  background-color: black;
+  top: 10px;
+  right: 10px;
+}
+.videoSection video.video {
+  width: 80%;
+}
+.videoSection video.my-video {
+  width: 10%;
+  height: 80px;
+}
+@media (min-width: 768px) {
+  #login .modal-dialog {
+    width: 470px;
+  }
+}
+#login #AcceptLogin {
+  width: 100%;
+}
+#login input {
+  margin-bottom: 15px;
+}
+#login a:hover {
+  cursor: pointer;
+}
+#loginlogout {
+  position: absolute;
+  right: 0;
+}
+@media (max-width: 768px) {
+  #loginlogout {
+    right: 65px;
+    top: 0;
+  }
+  #loginlogout a {
+    line-height: 30px;
+  }
+}
+.loginbtn {
+  margin: 7px;
+}
+.loginbtn img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+video {
+  max-width: 100%;
+  width: 100%;
+}
