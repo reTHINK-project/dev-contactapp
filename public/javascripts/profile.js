@@ -37,10 +37,12 @@ function addProfileEvents() {
 
 function toggleFields()
 {
+/*
     if ($("#reTHINKCheck").is(":checked") == true)
         $("#divInputReTHINKID").show();
     else
         $("#divInputReTHINKID").hide();
+*/
     // GUID Checkbox is only present when there is no GUID.
     if ($("#GUIDCheck")[0])
     {
@@ -136,11 +138,12 @@ function importGUID(event)
 
 function addContact(event)
 {
-    event.preventDefault();
-    if (($("#reTHINKCheck").is(":checked") == true) && ($('#idpDomain').val() == "" || $('#serviceDomain').val() == "" ))
+    if (($('#uid').val() == "") || 
+    (($("#reTHINKCheck").is(":checked") == true) && ($('#idpDomain').val() == "" || $('#serviceDomain').val() == "" )))
     {
         return ;
     }
+    event.preventDefault();
     $.post('/users/addContactToGlobal',$("#contactForm").serialize(), function (data, response) {
         // Check for successful (blank) response
         if (response == 'success') {
