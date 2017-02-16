@@ -250,7 +250,7 @@ router.put('/globalcontact/', function (req, res, next) {
 
 
     _globalRegistryRecord.legacyIDs.push({ "id": req.user.local.email, "category": req.currentDomain });
-//    _globalRegistryRecord.defaults = ({ "voice": "a", "chat": "b", "video": "c" })
+    _globalRegistryRecord.defaults = ({ "voice": "a", "chat": "b", "video": "c" })
     var jwt = _signGlobalRegistryRecord();
     var urlRequest = req.globalRegistryUrl  + '/guid/' + _globalRegistryRecord.guid;
 
@@ -524,6 +524,7 @@ var Record = function () {
   this.guid = "";
   this.salt = "";
   this.userIDs = [];
+  this.legacyIDs = [];
   this.lastUpdate = "";
   this.timeout = "";
   this.publicKey = "";
