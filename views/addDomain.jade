@@ -15,13 +15,12 @@ div.container.row
         form(id="contactForm")
             div.form-group
                 label User Identifier
-                input.form-control(type='text', name="uid", id="uid", placeholder='fluffy123', required='true')
-            input#reTHINKCheck(type='checkbox', name="reTHINKCheck") 
-            label &nbsp;reTHINK service
-            br
+                input.form-control#uid(type='text', name="uid", placeholder='fluffy123', required='true')
             div.form-group(id="divInputReTHINKID")
                 label Identity Domain
                 input.form-control(type='text', name="idpDomain", id="idpDomain", placeholder='google.com', required='true')
                 label Service domain
                 input.form-control(type='text',name="serviceDomain", id="serviceDomain", placeholder='rethink.com', required='true')
+                input#reTHINKCheck(type='checkbox', name="reTHINKCheck") 
+                label &nbsp;reTHINK service
             button(type="submit" class="btnaddcontact btn btn-warning") Add domain 

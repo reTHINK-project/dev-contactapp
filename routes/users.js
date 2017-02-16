@@ -342,7 +342,8 @@ router.get('/getRoom/:id', function (req, res, next) {
       if (response.statusCode != 200) {
         console.log('error ' + response.statusCode);
         console.log(JSON.stringify(req.body));
-      }
+           res.json({ url: '' });
+     }
       else {
         if (response.body != '{}') {
           var roomList = JSON.parse(response.body);
@@ -477,23 +478,17 @@ function updateGlobalRegistryRemoveRecord(guid, req, res, next) {
           var arrayResult = updateRecord.userIDs.filter(function(item){
             return ((item.uid != userId) || (item.domain != serviceDomain));
           });
-          removed = (arrayResult.length ==  (updateRecord.userIDs.length -1));
-        }
-        if (removed)
-        {
+          removed = (arrayResult.length <  (updateRecord.userIDs.length));
           updateRecord.userIDs = arrayResult;
         }
-        else {
-          if (updateRecord.legacyIDs)
-          {
-            var arrayResult = updateRecord.legacyIDs.filter(function(item){
-                return (item.id != userId);
-              });
-              removed = (arrayResult.length ==  (updateRecord.legacyIDs.length -1));
-          }
-          if (removed)
+        if (!removed) {
+            if (updateRecord.legacyIDs)
             {
-              updateRecord.legacyIDs = arrayResult;
+              var arrayResult2 = updateRecord.legacyIDs.filter(function(item){
+                  return ((item.id != userId) || item.category != serviceDomain);
+                });
+                removed = (arrayResult2.length <  (updateRecord.legacyIDs.length));
+                updateRecord.legacyIDs = arrayResult2;
             }
          }
          saveRecord(urlRequest, req,  res, jwtHeader, updateRecord, req.user.local.privateKey);

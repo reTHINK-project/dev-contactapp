@@ -1,3 +1,20 @@
+// DOM Ready =============================================================
+$(document).ready(function () {
+    /*=============================================================*/
+
+    /******* Contact View************/
+
+    // Populate the user table on initial page load
+    getContactList();
+
+    // Add Contact event 
+    addContactEvent();
+
+    //setTimeout(loadreThink, 3000);
+
+
+});
+
 var contactsList = [];
 //var url = 'http://130.149.22.133:5002';
 
@@ -100,6 +117,13 @@ function updateContact(event) {
     });
 }
 
+function knownDomain(anId, aDomain)
+{
+    return (aDomain.includes("facebook.com") || 
+            anId.includes("facebook.com") || 
+            aDomain.includes("acor-webrtc.rethink2.orange-labs.fr"));
+}
+
 function getContactList() {
     // Empty content string
     var tableContent = '';
@@ -115,13 +139,18 @@ function getContactList() {
             if (typeof this.contactlist.uids !== 'undefined')
             {
                 $.each(JSON.parse(this.contactlist.uids), function () {
-                    var id = this.uid?this.uid:this.id;
+                    if (this.uid)
+                    {
+                        var isRethink = true;
+                    }
+                    var id = isRethink?this.uid:this.id;
                     var domain = this.domain?this.domain:this.category;
                     callSection += "<tr><td>";
                     if (this.uid){callSection += '<img src="/favicon.ico"/>'};
-                    callSection += id + "<br>" + "domain: " + domain;
-                    if (typeof domain !== "undefined" && domain.indexOf("orange-labs.fr") != -1) {
-                        callSection += '<td><button type="button" class="callUser btn btn-xs btn-success" uid="' + id + '" domain="' + domain + '">call</button></td>'
+                    callSection += "<b>" + id + "</b>";
+                    callSection += (domain!="")?"<br>domain: " + domain:"";
+                    if (knownDomain(id, domain) || (this.uid)) {
+                        callSection += '<td>&nbsp;<button type="button" class="callUser btn btn-xs btn-success" isRethink="'+ isRethink +'"uid="' + id + '" domain="' + domain + '">Join</button></td>';
                     }
                     callSection += "</td></tr>";
                 });
@@ -147,15 +176,30 @@ function getContactList() {
 
 function callUser(event) {
     event.preventDefault();
-    $.ajax({
-        type: 'GET',
-        url: '/users/getRoom/' + $(this).attr('uid')
-    }).done(function (response) {
-        if (response.url != '') {
-            window.location.href = response.url
-        }
-        else {
-            alert("Your contact is offline");
-        }
-    });
+    var targetId = $(this).attr('uid');
+    var isRethink = ($(this).attr('isRethink') == "true");
+    if (targetId.includes("facebook.com"))
+    {
+        window.open(targetId, '_blank');
+        return;
+    }
+    if ($(this).attr('domain') == "acor-webrtc.rethink2.orange-labs.fr")
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/users/getRoom/' + targetId
+        }).done(function (response) {
+            if (response.url != '') {
+                window.open(response.url, '_blank');
+            }
+            else {
+                alert("Your contact is offline");
+            }
+        });
+        return
+    }
+    if (isRethink)
+    {
+        // TODO Launch rethink runtime...
+    }
 }
