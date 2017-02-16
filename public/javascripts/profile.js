@@ -23,31 +23,35 @@ function buildUidArray(record)
 function addProfileEvents() {
     $("#reTHINKCheck").change(function(){ toggleFields();} );
     $('.btnaddcontact').on('click', addContact);
- /*  if ($("#GUIDCheck")[0])
+   if ($("#GUIDCheck")[0])
     {
         $("#GUIDCheck").change(function(){ toggleFields();} );
         $('.btnpublish').on('click', publishGUID);
+        $('.btnimport').on('click', importGUID);
     }
-    else {
-        $('.btnunpublish').on('click', unpublishGUID);
-    }*/
-    $('.btnpublish').on('click', publishGUID);
+//    else {
+//        $('.btnunpublish').on('click', unpublishGUID);
+//    }
+//    $('.btnpublish').on('click', publishGUID);
 }
 
 function toggleFields()
 {
-    if ($("#reTHINKCheck")[0].checked == true)
+    if ($("#reTHINKCheck").is(":checked") == true)
         $("#divInputReTHINKID").show();
     else
         $("#divInputReTHINKID").hide();
     // GUID Checkbox is only present when there is no GUID.
- /*   if ($("#GUIDCheck")[0])
+    if ($("#GUIDCheck")[0])
     {
-        if ($("#GUIDCheck")[0].checked == true)
+        if ($("#GUIDCheck").is(":checked") == true){
             $("#divInputGUID").show();
-        else
+            $(".btnpublish").addClass("disabled");
+        }else{
             $("#divInputGUID").hide();
-    }*/
+            $(".btnpublish").removeClass("disabled");
+        }
+    }
 };
 
 function remove(id, domain)
@@ -94,11 +98,6 @@ function getUserInfo() {
 function publishGUID(event)
 {
     event.preventDefault(); 
-/*    if (($("#GUIDCheck")[0].checked == true) && ($('#userGUID')[0].value == "" || $('#inputPrKey')[0].value == ""))
-    {
-        return ;
-    }
-    var value = $('#userGUID')[0].value;*/
     $.ajax({
         type: 'PUT',
         data: "{}",
@@ -113,11 +112,32 @@ function publishGUID(event)
     });
 }
 
+function importGUID(event)
+{
+    if (($("#GUIDCheck")[0].checked == true) && ($('#userGUID').val() == "" || $('#inputPrKey').val() == ""))
+    {
+        return ;
+    }
+    event.preventDefault(); 
+    var guid = $('#userGUID').val();
+    $.ajax({
+        type: 'PUT',
+        data: {"key":$('#inputPrKey').val()},
+        url: '/users/globalcontact/' + guid,
+        dataType: 'JSON'
+    }).complete(function (response) {
+        // Check for successful (blank) response
+        if (response.responseJSON.msg === '') {
+            location.reload();
+        }
+        else { alert('Error: ' + response.responseJSON.msg); }  // If something goes wrong, alert the error message that our service returned
+    });
+}
 
 function addContact(event)
 {
     event.preventDefault();
-    if (($("#reTHINKCheck")[0].checked == true) && ($('#idpDomain')[0].value == "" || $('#serviceDomain')[0].value == "" ))
+    if (($("#reTHINKCheck").is(":checked") == true) && ($('#idpDomain').val() == "" || $('#serviceDomain').val() == "" ))
     {
         return ;
     }
@@ -126,9 +146,9 @@ function addContact(event)
         if (response == 'success') {
             getUserInfo();
             // clear fields
-            $('#uid')[0].value = "";
-            $('#serviceDomain')[0].value = "";
-            $('#idpDomain')[0].value = "";
+            $('#uid').val("");
+            $('#serviceDomain').val("");
+            $('#idpDomain').val("");
             $("#reTHINKCheck")[0].checked = false
             toggleFields();
         }

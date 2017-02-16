@@ -240,7 +240,9 @@ router.post('/removeContactFromGlobal', function (req, res, next) {
   updateGlobalRegistryRemoveRecord(loggedUser, req, res, next);
 });
 
-
+/**
+ * This is to register a new GUID
+ */
 router.put('/globalcontact/', function (req, res, next) {
   var guid = req.params.guid;
   var loggedUser = req.user.local.guid;
@@ -285,11 +287,42 @@ router.put('/globalcontact/', function (req, res, next) {
 });
 
 /*
-router.get('/globalcontact/:guid', function (req, res, next) {
+* This is to merge an account to an already existing GUID
+*/
+router.put('/globalcontact/:guid', function (req, res, next) {
+  var currentUser = req.user;
   var guid = req.params.guid;
-  getGlobalContact(guid, req, res, next);
+  // Verify if the GUID exists
+  var urlRequest = req.globalRegistryUrl + '/guid/' + guid;
+  request(
+     {
+        method: 'GET',
+        proxy: req.proxy,
+        uri: urlRequest,
+     },
+     function (error, response, body) {
+        // GUID not found
+        if (response.statusCode != 200) {
+          console.log('error ' + response.statusCode);
+          console.log(JSON.stringify(req.body));
+          res.send({ msg: 'GUID Not found error ' + response.statusCode });
+        } else {  
+          // GUID Found, save it
+          currentUser.local.guid = guid;
+          currentUser.local.privateKey = req.body.key;
+          currentUser.save(function (err) {
+            if (err) {
+              res.send({ msg: err });
+            }
+            else {
+              res.send({ msg: '' });
+            }
+          });
+        }
+    });
 });
 
+/*
 router.get('/getUserInfo', function (req, res, next) {
   var guid = req.user.local.guid;
   getGlobalContact(guid, req, res, next);

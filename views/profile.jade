@@ -42,12 +42,13 @@ append body
 				else
 					form
 						button(type="submit" class="btnpublish btn btn-warning") Publish in Global Registry
-						//div.hide
-							input#GUIDCheck.disabled(type='checkbox') 
-							label &nbsp;I already have a GUID
-							div.form-group(id="divInputGUID")
-								input#userGUID.form-control(type='text',name="inputGUID", placeholder='xxxxx', required='true')
-								input#inputPrKey.form-control(type='text',name="inputPrKey", placeholder='xxxxx', required='true')
+					form
+						input#GUIDCheck(type='checkbox') 
+						label &nbsp;I already have a GUID
+						div.form-group(id="divInputGUID")
+							input#userGUID.form-control(type='text',name="inputGUID", placeholder='GUID', required='true')
+							input#inputPrKey.form-control(type='text',name="inputPrKey", placeholder='private key', required='true')
+							button(type="submit" class="btnimport btn btn-warning") Import GUID
 				
 	.col-sm-6
 		.well
