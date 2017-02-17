@@ -81,7 +81,6 @@ app.use('/profile', home);
 app.use('/admin', home);
 app.use('/users', users);
 app.use('/addDomain', users);
-//app.use('/room', room);
 
 
 // catch 404 and forward to error handler
