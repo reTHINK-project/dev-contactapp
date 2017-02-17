@@ -26,6 +26,7 @@ function addContactEvent() {
     $('#userList table tbody').on('click', 'td button.updateContact', updateContact);
 
     // Show User link click
+    $('#userList table tbody').off('click', 'td button.callUser', callUser);
     $('#userList table tbody').on('click', 'td button.callUser', callUser);
     //$('#userList table tbody').on('click', 'td button.callUser', callWebRTC);
 
@@ -150,7 +151,7 @@ function getContactList() {
                     callSection += "<b>" + id + "</b>";
                     callSection += (domain!="")?"<br>domain: " + domain:"";
                     if (knownDomain(id, domain) || (this.uid)) {
-                        callSection += '<td>&nbsp;<button type="button" class="callUser btn btn-xs btn-success" isRethink="'+ isRethink +'"uid="' + id + '" domain="' + domain + '">Join</button></td>';
+                        callSection += '<td>&nbsp;<button type="button" class="callUser btn btn-xs btn-success" isRethink="'+ isRethink +'"uid="' + id + '" domain="' + domain + '">Call</button></td>';
                     }
                     callSection += "</td></tr>";
                 });
@@ -200,6 +201,6 @@ function callUser(event) {
     }
     if (isRethink)
     {
-        // TODO Launch rethink runtime...
+        callHyperty(targetId, $(this).attr('domain'));
     }
 }
