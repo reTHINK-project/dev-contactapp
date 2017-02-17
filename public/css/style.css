@@ -7,7 +7,9 @@ a {
   color: #00B7FF;
 }
 #rethink {
-  display: none !important;
+	position: fixed !important;
+    height: 50% !important; 
+	background: #555555 !important;
 }
 .modal-body {
   overflow: hidden;
