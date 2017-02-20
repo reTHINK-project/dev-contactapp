@@ -25,20 +25,15 @@ append body
 	.container
 		.row 
 			.col-sm-4
-				- var MyText = 'Welcome '+user.local.email;
 				- var Guid = user.local.guid;
-				h2= MyText
+				h3= 'Welcome '+user.local.email
 				div(id='qrcode') 
 				script.
-					if ('#{user.local.guid}' != '')
-					{
-						$('#qrcode').qrcode({width: 64,height: 64,text: '#{user.local.guid}'});
-					}
+					if ('#{user.local.guid}' != '') $('#qrcode').qrcode({width: 64,height: 64,text: '#{user.local.guid}'});
 
-
-			.col-sm-8#addUser
+			.col-sm-6.col-sm-offset-1#addUser
+				h3.form-signin-heading Add Contact
 				form.form-signin
-					h2.form-signin-heading Add Contact
 						label.sr-only(for='inputFirstName') First Name
 						input#inputFirstName.form-control(type='text', placeholder='Contact Name', required='true')
 						label.sr-only(for='inputLastName') Last Name
