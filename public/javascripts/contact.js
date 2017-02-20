@@ -1,5 +1,5 @@
 // DOM Ready =============================================================
-$(document).ready(function () {
+$(document).ready(function() {
     /*=============================================================*/
 
     /******* Contact View************/
@@ -42,10 +42,9 @@ function addContact(event) {
     var valueName = $('#inputFirstName').val();
     var valueGUID = $("#inputGuid").val();
 
-    if (valueName != "" && valueGUID != "")
-    {
+    if (valueName != "" && valueGUID != "") {
         event.preventDefault();
-        $('#addUser input').each(function (index, val) {
+        $('#addUser input').each(function(index, val) {
             if ($(this).val() === '') { emptyInput++; }
         });
 
@@ -56,7 +55,7 @@ function addContact(event) {
             'guid': valueGUID,
         }
 
-        $.each(contactsList, function () {
+        $.each(contactsList, function() {
             if (this.contactlist.guid === newUser.guid) exist = true
         });
 
@@ -68,17 +67,15 @@ function addContact(event) {
                 data: newUser,
                 url: '/users/addcontact/',
                 dataType: 'JSON'
-            }).done(function (response) {
+            }).done(function(response) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
                     // Clear the form inputs
                     $(".form-signin")[0].reset();
                     getContactList();
-                }
-                else { alert('Error: ' + response.msg); }  // If something goes wrong, alert the error message that our service returned
+                } else { alert('Error: ' + response.msg); } // If something goes wrong, alert the error message that our service returned
             });
-        }
-        else {
+        } else {
             alert('User already imported, please update it');
         }
     }
@@ -89,7 +86,7 @@ function removeContact(event) {
     $.ajax({
         type: 'DELETE',
         url: '/users/removecontact/' + $(this).attr('rel')
-    }).done(function (response) {
+    }).done(function(response) {
         // Check for a successful (blank) response
         if (response.msg != '') alert('Error: ' + response.msg);
 
@@ -100,58 +97,53 @@ function removeContact(event) {
 
 function updateContact(event) {
     event.preventDefault();
-    var contactGUID  = $(this).attr('rel');
-    // Check and make sure errorCount's still at zero
+    var contactGUID = $(this).attr('rel');
     $.ajax({
         type: 'POST',
         data: '',
-        url: '/users/updatecontact/' +  contactGUID,
+        url: '/users/updatecontact/' + contactGUID,
         dataType: 'JSON'
-    }).done(function (response) {
+    }).done(function(response) {
         // Check for successful (blank) response
         if (response.msg === '') {
             // Clear the form inputs
             $(".form-signin")[0].reset();
             getContactList();
-        }
-        else { alert('Error: ' + response.msg); }  // If something goes wrong, alert the error message that our service returned
+        } else { alert('Error: ' + response.msg); } // If something goes wrong, alert the error message that our service returned
     });
 }
 
-function knownDomain(anId, aDomain)
-{
-    return (aDomain.includes("facebook.com") || 
-            anId.includes("facebook.com") || 
-            aDomain.includes("acor-webrtc.rethink2.orange-labs.fr"));
+function knownDomain(anId, aDomain) {
+    return (aDomain.includes("facebook.com") ||
+        anId.includes("facebook.com") ||
+        aDomain.includes("acor-webrtc.rethink2.orange-labs.fr"));
 }
 
 function getContactList() {
     // Empty content string
     var tableContent = '';
 
-    $.getJSON('/users/getcontactlists', function (data) {
+    $.getJSON('/users/getcontactlists', function(data) {
 
         // Stick our user data array into a userlist variable in the global object
         contactsList = data;
-        $.each(data, function () {
+        $.each(data, function() {
             var callId = "";
             var uids = "";
             var callSection = "<table >";
-            if (typeof this.contactlist.uids !== 'undefined')
-            {
-                $.each(JSON.parse(this.contactlist.uids), function () {
-                    if (this.uid)
-                    {
+            if (typeof this.contactlist.uids !== 'undefined') {
+                $.each(JSON.parse(this.contactlist.uids), function() {
+                    if (this.uid) {
                         var isRethink = true;
                     }
-                    var id = isRethink?this.uid:this.id;
-                    var domain = this.domain?this.domain:this.category;
+                    var id = isRethink ? this.uid : this.id;
+                    var domain = this.domain ? this.domain : this.category;
                     callSection += "<tr><td>";
-                    if (this.uid){callSection += '<img src="/favicon.ico"/>'};
+                    if (this.uid) { callSection += '<img src="/favicon.ico"/>' };
                     callSection += "<b>" + id + "</b>";
-                    callSection += (domain!="")?"<br>domain: " + domain:"";
+                    callSection += (domain != "") ? "<br>domain: " + domain : "";
                     if (knownDomain(id, domain) || (this.uid)) {
-                        callSection += '<td>&nbsp;<button type="button" class="callUser btn btn-xs btn-success" isRethink="'+ isRethink +'"uid="' + id + '" domain="' + domain + '">Call</button></td>';
+                        callSection += '<td>&nbsp;<button type="button" class="callUser btn btn-xs btn-success" isRethink="' + isRethink + '"uid="' + id + '" domain="' + domain + '">Call</button></td>';
                     }
                     callSection += "</td></tr>";
                 });
@@ -160,10 +152,10 @@ function getContactList() {
             tableContent += '<tr>';
             tableContent += '<td>' + this.contactlist.firstname + ' ' + this.contactlist.lastname + '</td>';
             tableContent += '<td>' + this.contactlist.guid + '</td>';
-            tableContent += '<td>' + this.contactlist.info  + '</td>';
-            tableContent += '<td><button type="button" class="updateContact btn btn-xs btn-info" rel="' + this.contactlist.guid + 
-            '" >Update</button><br/><button type="button" class="deleteUser btn btn-xs btn-danger" rel="' + this._id + '" >delete</button></td>';
-//            tableContent += '<td id="" rel="">' + uids + '</td>';
+            tableContent += '<td>' + this.contactlist.info + '</td>';
+            tableContent += '<td><button type="button" class="updateContact btn btn-xs btn-info" rel="' + this.contactlist.guid +
+                '" >Update</button><br/><button type="button" class="deleteUser btn btn-xs btn-danger" rel="' + this._id + '" >delete</button></td>';
+            //            tableContent += '<td id="" rel="">' + uids + '</td>';
             tableContent += '<td>' + callSection + '</td>';
             //else tableContent +='<td><button type="button" class="callUser btn btn-xs btn-default">call</button></td>';
             tableContent += '</tr>';
@@ -179,28 +171,24 @@ function callUser(event) {
     event.preventDefault();
     var targetId = $(this).attr('uid');
     var isRethink = ($(this).attr('isRethink') == "true");
-    if (targetId.includes("facebook.com"))
-    {
+    if (targetId.includes("facebook.com")) {
         window.open(targetId, '_blank');
         return;
     }
-    if ($(this).attr('domain') == "acor-webrtc.rethink2.orange-labs.fr")
-    {
+    if ($(this).attr('domain') == "acor-webrtc.rethink2.orange-labs.fr") {
         $.ajax({
             type: 'GET',
             url: '/users/getRoom/' + targetId
-        }).done(function (response) {
+        }).done(function(response) {
             if (response.url != '') {
                 window.open(response.url, '_blank');
-            }
-            else {
+            } else {
                 alert("Your contact is offline");
             }
         });
         return
     }
-    if (isRethink)
-    {
+    if (isRethink) {
         callHyperty(targetId, $(this).attr('domain'));
     }
 }

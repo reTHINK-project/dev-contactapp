@@ -1,32 +1,3 @@
-append styles
-    // Bootstrap theme
-    +bootswatch("cerulean")
-    // Custom styles for this template
-    link(href='../css/theme.css', rel='stylesheet')
-    // Custom styles for this template
-    link(href='../css/navbar-fixed-top.css', rel='stylesheet')
-    link(href='../css/style.css', rel='stylesheet')
-    // Custom Fonts
-    link(href="vendor/font-awesome/css/font-awesome.min.css", rel="stylesheet", type="text/css")
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800',
-        rel='stylesheet', type='text/css')
-    link(href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic',
-        rel='stylesheet', type='text/css')
-
-    // Plugin CSS
-    link(href="/call/vendor/magnific-popup/magnific-popup.css", rel="stylesheet")
-    // Theme CSS
-    link(href="/call/less/creative.css", rel="stylesheet")
-append scripts
-    script(src="/call/vendor/scrollreveal/scrollreveal.min.js")
-    script(src="/call/vendor/magnific-popup/jquery.magnific-popup.min.js")
-
-    // Theme JavaScript
-    script(src="/call/js/creative.min.js")
-    // Rethink JS Files
-    script(src="/call/clientBootStrap.js")
-    script(src="/call/WebRTCHypertyClient.js")
- 
 append body
     nav#mainNav
             div.hide
@@ -87,31 +58,33 @@ append body
             div.invitation-panel 
             
             div#video.row.hide 
-            div.video-holder.col-lg-12 
-                video#remoteVideo.smallVideo.video.responsive-video(autoplay, poster="img/header.gif")
-                video#localVideo.fullVideo.my-video.responsive-video(muted, autoplay, poster="img/header.gif")
-            div.col-sm-2 
-            fieldset.form-fieldset 
-                legend local media
-                div.form-checkbox-set 
-                    label video
-                        input#local-video.form-checkbox(type="checkbox", value="1", checked) 
-                
-                div.form-checkbox-set 
-                    label audio
-                        input#local-audio.form-checkbox(type="checkbox", value="1", checked) 
-                
-            fieldset.form-fieldset 
-                legend remote media
-                div.form-checkbox-set 
-                    label video
-                        input#remote-video.form-checkbox(type="checkbox", value="1", checked) 
-                
-                div.form-checkbox-set 
-                    label audio
-                        input#remote-audio.form-checkbox(type="checkbox", value="1", checked)
-                
-                button#hangup.btn.btn-default.btn-sm hangup
+            div.video-holder.col-sm-12 
+                video#remoteVideo.col-sm-5.smallVideo.video.responsive-video(autoplay, poster="img/header.gif")
+                video#localVideo.col-sm-5.fullVideo.my-video.responsive-video(muted, autoplay, poster="img/header.gif")
+            div.col-sm-12
+                div.col-sm-4 
+                    fieldset.form-fieldset 
+                        legend local media
+                        div.form-checkbox-set 
+                            label video
+                                input#local-video.form-checkbox(type="checkbox", value="1", checked) 
+                        
+                        div.form-checkbox-set 
+                            label audio
+                                input#local-audio.form-checkbox(type="checkbox", value="1", checked) 
+                div.col-sm-1 
+                div.col-sm-4          
+                    fieldset.form-fieldset 
+                        legend remote media
+                        div.form-checkbox-set 
+                            label video
+                                input#remote-video.form-checkbox(type="checkbox", value="1", checked) 
+                        
+                        div.form-checkbox-set 
+                            label audio
+                                input#remote-audio.form-checkbox(type="checkbox", value="1", checked)
+                        
+                        button#hangup.btn.btn-default.btn-sm hangup
  
     // Modal Structure
     div.modal.hide.fade#AcceptCall 
