@@ -6,7 +6,7 @@ module.exports = {
     //'globlaRegistryUrl': 'http://greg.rethink3.orange-labs.fr',
     //'globlaRegistryUrl' : 'http://130.149.22.133', 
     //'globlaRegistryPort' : '5002',
-    'proxy': 'http://proxy.rd.francetelecom.fr:3128/',
+    'proxy': '',
     'domainRegistryUrl': 'https://acor-webrtc.rethink2.orange-labs.fr/registry/',
     'webRTCUrl': 'https://acor-webrtc.rethink2.orange-labs.fr/',
 
