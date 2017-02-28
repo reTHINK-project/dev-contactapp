@@ -26,7 +26,7 @@ function addContactEvent() {
     $('#userList table tbody').on('click', 'td button.updateContact', updateContact);
 
     // Show User link click
-    $('#userList table tbody').off('click', 'td button.callUser', callUser);
+    //$('#userList table tbody').off('click', 'td button.callUser', callUser);
     $('#userList table tbody').on('click', 'td button.callUser', callUser);
     //$('#userList table tbody').on('click', 'td button.callUser', callWebRTC);
 
@@ -186,9 +186,28 @@ function callUser(event) {
                 alert("Your contact is offline");
             }
         });
-        return
+        return;
     }
     if (isRethink) {
         callHyperty(targetId, $(this).attr('domain'));
+
+    }
+}
+
+function callHyperty(uid, dom) {
+    if (!RUNTIME) {
+        // Load the runtime
+        registerDomain().then(function(result) {
+            // if successful load hyperty Connector
+            console.log("youpi");
+            loadHypertyConnector().then(function() {
+                proceedCall(uid, dom);
+            });
+
+        }).catch(function(err) {
+            console.log(err);
+        });
+    } else {
+        proceedCall(uid, dom);
     }
 }

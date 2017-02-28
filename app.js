@@ -3,10 +3,9 @@
 //https://rethink.tlabscloud.com/
 
 
-if (typeof process.env.NODE_ENV != 'undefined' && process.env.NODE_ENV == 'development')
-{
-   var tunnel = require('./setup_proxy');
-}
+/*if (typeof process.env.NODE_ENV != 'undefined' && process.env.NODE_ENV == 'development') {
+    var tunnel = require('./setup_proxy');
+}*/
 
 var express = require('express');
 var path = require('path');
@@ -28,7 +27,7 @@ mongoose.connect(configAPP.url);
 require('./config/passport'); // pass passport for configuration
 
 //Global registry
-var globlaRegistryUrl = ""
+var globlaRegistryUrl = "";
 
 //PassPort 
 var session = require('express-session');
@@ -58,17 +57,17 @@ app.use(session({ secret: 'rethink', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session("combined")); // persistent login sessions
 app.use(flash());
-app.use(function (req, res, next) {
-  req.flash = flash;
-  req.globalRegistryUrl = configAPP.globlaRegistryUrl;
-  //req.globalRegistryPort = configAPP.globlaRegistryPort;
-  req.domainRegistryUrl = configAPP.domainRegistryUrl;
-  req.proxy = configAPP.proxy;
-  req.webRTCUrl = configAPP.webRTCUrl;
-  req.title = "Contacts App";
-  req.currentDomain = "http://localhost/";
-  //req.currentDomain = "https://rethink.tlabscloud.com/";
-  next();
+app.use(function(req, res, next) {
+    req.flash = flash;
+    req.globalRegistryUrl = configAPP.globlaRegistryUrl;
+    //req.globalRegistryPort = configAPP.globlaRegistryPort;
+    req.domainRegistryUrl = configAPP.domainRegistryUrl;
+    req.proxy = configAPP.proxy;
+    req.webRTCUrl = configAPP.webRTCUrl;
+    req.title = "Contacts App";
+    req.currentDomain = "http://localhost/";
+    //req.currentDomain = "https://rethink.tlabscloud.com/";
+    next();
 });
 
 //Add passport 
@@ -84,28 +83,28 @@ app.use('/addDomain', users);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error' )
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

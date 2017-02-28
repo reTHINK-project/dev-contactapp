@@ -12,21 +12,20 @@ append styles
         rel='stylesheet', type='text/css')
 	link(href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic',
         rel='stylesheet', type='text/css')
-	link(href="/call/vendor/magnific-popup/magnific-popup.css", rel="stylesheet")
+	//link(href="/call/vendor/magnific-popup/magnific-popup.css", rel="stylesheet")
 	script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js')
 	script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js')
 append scripts
 	//script(src='../javascripts/require.js')
-	//script(src='../javascripts/loadRuntime.js')
 	//script(src='../javascripts/loadWebRTC.js')
 	//script(src='../javascripts/loadConnector.js')
 	script(src='../javascripts/contact.js')
 	//---------------------------------------------------------------------------//
 	// Rethink JS Files
-	script(src="/call/vendor/scrollreveal/scrollreveal.min.js")
-	script(src="/call/vendor/magnific-popup/jquery.magnific-popup.min.js")
-	script(src="/call/clientBootStrap.js")
-	script(src="/call/WebRTCHypertyClient.js")
+	script(src='../javascripts/reThinkCall/loadRuntime.js')
+	script(src="/javascripts/reThinkCall/WebRTCHypertyClient.js")
+	//script(src="/call/vendor/scrollreveal/scrollreveal.min.js")
+	//script(src="/call/vendor/magnific-popup/jquery.magnific-popup.min.js")
 append body
 	// The fixed navigation bar
 	include navbar.jade
