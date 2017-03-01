@@ -265,7 +265,8 @@ function getIceServers() {
 }
 
 function saveProfile(event) {
-    event.preventDefault();
+    if(!(typeof(event) === "undefined")) event.preventDefault();
+    
     var profile = {};
     console.log("[DTWebRTC.main]:save profile " + PROFILE_KEY);
     // transfer all values from all text-inputs of the settings div to profile
@@ -322,7 +323,7 @@ function initCall() {
     let toHyperty = hypertyToCall.hypertyID;
     $('#discover').addClass('hide');
 
-    saveProfile(event);
+    saveProfile();
     getIceServers();
     prepareMediaOptions();
     status = STATUS_DISCONNECTED;
