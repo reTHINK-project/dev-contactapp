@@ -344,7 +344,7 @@ router.get('/getRoom/:id', function(req, res, next) {
 
             if (response.statusCode != 200) {
                 console.log('error ' + response.statusCode);
-                console.log(JSON.stringify(req.body));
+                console.log(JSON.stringify(response.body));
                 res.json({ url: '' });
             } else {
                 if (response.body != '{}') {

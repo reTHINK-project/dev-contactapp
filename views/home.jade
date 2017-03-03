@@ -41,7 +41,7 @@ append body
 				div(id='qrcode') 
 				script.
 					if ('#{user.local.guid}' != '') $('#qrcode').qrcode({width: 64,height: 64,text: '#{user.local.guid}'});
-
+					if ('#{user.local.guid}' == '') {document.write("Hey Guy! Seems that you don't yet prublish your profile on the Global Registry. Please go to <a href='home/profile'>your profile<a>");}
 			.col-sm-6.col-sm-offset-1#addUser
 				h3.form-signin-heading Add Contact
 				form.form-signin

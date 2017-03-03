@@ -322,8 +322,8 @@ function initCall() {
     // Retreive the Called URL
     let toHyperty = hypertyToCall.hypertyID;
     $('#discover').addClass('hide');
-
-    saveProfile();
+    var fakeEvent;
+    saveProfile(fakeEvent);
     getIceServers();
     prepareMediaOptions();
     status = STATUS_DISCONNECTED;

@@ -11,12 +11,15 @@ append styles
     script(src='../javascripts/lib/wid_api.js')
 append body
     div.container.text-center
-            h1 Login
+        div.col-sm-2
+            img(class="logo" src="rethink.png") 
+        div.col-sm-8
+            h1 Contact Management
         div.col-sm-4.col-sm-offset-4.loginContainer    
             a(class="btn btn-default loginbtn btn-lg authConnect" href="#" onclick="authConnect();")
                 img(src="icon64.png") 
                 span Connect
-            h3.text-center.loginInfo Or connect with e-mail adress
+            h3.text-center.loginInfo Or use your account
             
             form(action="/login" method="POST")
                 div.form-group
