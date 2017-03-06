@@ -1,0 +1,97 @@
+append body
+    nav#mainNav
+            div.hide
+                form#settings.form-horizontal.settings(role="form")
+                    div.darktext.form-group
+                        label.col-sm-1.control-label Stun
+                        div.col-sm-4
+                            input#stun.form-control(value="stun.l.google.com:19302", placeholder="stun")
+                        label.col-sm-1.control-label Turn
+                        div.col-sm-4
+                            input#turn.form-control(value="", size="20", placeholder="turn url")
+                        label use strict
+                            input#strictice(type="checkbox") 
+
+                    div.darktext.form-group
+                        label.col-sm-1.control-label user
+                            div.col-sm-4
+                                input#turn_user.form-control(value="", size="10", placeholder="")
+                        label.col-sm-1.control-label pass
+                            div.col-sm-4 
+                                input#turn_pass.form-control(value="", size="10", type="password")
+
+                    div.darktext.form-group 
+                        div.col-sm-6 
+                        div.col-sm-2 
+                            button#saveConfig.btn.btn-default.btn-sm(type="submit") Save profile
+  section#callSection
+        // Begin page content
+        div.main-content.container 
+            div.row 
+            div#content.content.col-sm-12 
+                div#info 
+                div.hyperty-panel 
+                div.send-panel 
+                div.invitation-panel 
+                
+                div#video.row.hide.video-holder.col-sm-12
+                    div.col-sm-12.videoSection
+                        video#remoteVideo.col-sm-8.smallVideo.video.responsive-video(autoplay, poster="img/header.gif")
+                        video#localVideo.col-sm-3.fullVideo.my-video.responsive-video(muted, autoplay, poster="img/header.gif")
+                    div.col-sm-12
+                        div.col-sm-8 
+                            fieldset.form-fieldset 
+                                legend local media
+                                div.form-checkbox-set 
+                                    label video
+                                        input#local-video.form-checkbox(type="checkbox", value="1", checked) 
+                                
+                                div.form-checkbox-set 
+                                    label audio
+                                        input#local-audio.form-checkbox(type="checkbox", value="1", checked) 
+                        div.col-sm-4          
+                            fieldset.form-fieldset 
+                                legend remote media
+                                div.form-checkbox-set 
+                                    label video
+                                        input#remote-video.form-checkbox(type="checkbox", value="1", checked) 
+                                
+                                div.form-checkbox-set 
+                                    label audio
+                                        input#remote-audio.form-checkbox(type="checkbox", value="1", checked)
+                                
+                        button#hangup.btn.btn-default.btn-info.btn-sm hangup
+    
+        // Modal Structure
+        div(class='modal fade' id='AcceptCall' role='dialog' tabindex="-1") 
+            div(class='modal-dialog' role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            label(aria-hidden="true") &times;
+                        h4 Call Incoming From
+                    div(class="modal-body information row" id="modalinfo") 
+                        div.valign-wrapper 
+                            div.col-lg-4 
+                                img#avatar.col-lg-12.circle(src="" alt="") 
+                            
+                            div.col-lg-8 
+                                div.col-lg-12 
+                                    span.text-right Name:
+                                    span.black-text#calleeName
+                                
+                                div.col-lg-12 
+                                    span.text-right Email:
+                                    span.black-text#calleeUsername
+                                
+                                div.col-lg-12 
+                                    span.text-right Locale:
+                                    span.black-text#calleLocale
+                                
+                                div.col-lg-12 
+                                    span.text-right UserURL:
+                                    span.black-text#calleUserURL
+                                
+                    div.modal-footer 
+                        button#btn-reject.modal-action.modal-close.waves-effect.waves-green.btn-reject.btn(type="button", data-dismiss="modal") Reject
+                        button#btn-accept.modal-action.modal-close.waves-effect.waves-green.btn-accept.btn.btn-primary(type="button", data-dismiss="modal") Accept

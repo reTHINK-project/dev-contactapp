@@ -52,15 +52,13 @@ append body
 				
 	.col-sm-6
 		.well
-			h3
-				span UserIds
-			p
-				#uidsList
-						table(class="table table-striped")
-							thead
-								tr
-									th uid
-									th domain
-							tbody
+			h3 UserIds
+			#uidsList
+					table(class="table table-striped")
+						thead
+							tr
+								th uid
+								th domain
+						tbody
 	include addDomain.jade
 //			a(href='/users/addDomain' class="btn btn-xs btn-info") Add Domain
