@@ -116,6 +116,8 @@ function updateContact(event) {
 function knownDomain(anId, aDomain) {
     return (aDomain.includes("facebook.com") ||
         anId.includes("facebook.com") ||
+        anId.includes("http") ||
+        anId.includes("mailto") ||
         aDomain.includes("acor-webrtc.rethink2.orange-labs.fr"));
 }
 
@@ -159,7 +161,6 @@ function getContactList() {
             tableContent += '<td>' + callSection + '</td>';
             //else tableContent +='<td><button type="button" class="callUser btn btn-xs btn-default">call</button></td>';
             tableContent += '</tr>';
-
         });
         // Inject the whole content string into our existing HTML table
         $('#userList table tbody').html(tableContent);
@@ -171,20 +172,28 @@ function callUser(event) {
     event.preventDefault();
     var targetId = $(this).attr('uid');
     var isRethink = ($(this).attr('isRethink') == "true");
-    if (targetId.includes("facebook.com")) {
+    if (targetId.includes("http") || targetId.includes("mailto")) {
         window.open(targetId, '_blank');
         return;
     }
-    if ($(this).attr('domain') == "acor-webrtc.rethink2.orange-labs.fr") {
+    var aDomain = $(this).attr('domain')
+    if (aDomain == "acor-webrtc.rethink2.orange-labs.fr") {
+        targetId = targetId.replace("user://", "");
         $.ajax({
             type: 'GET',
-            url: '/users/getRoom/' + targetId
+            url: 'https://' + aDomain + '/registry/' + targetId
         }).done(function(response) {
-            if (response.url != '') {
-                window.open(response.url, '_blank');
+            if (response !== 'undefined') {
+                    var idRoom;
+                    for (var room in response) {
+                        idRoom = room;
+                    }
+                window.open('https://' + aDomain + response[idRoom].url, '_blank');
             } else {
                 alert("Your contact is offline");
             }
+        }).fail(function(err) {
+                alert("Your contact is offline");
         });
         return;
     }
