@@ -1,28 +1,16 @@
-//extends ../node_modules/jade-bootstrap/_bootstrap
-//append styles
-//    // Bootstrap theme
-//    +bootswatch("cerulean")
-//    // Custom styles for this template
-//    link(href='../css/theme.css', rel='stylesheet')
-//    // Custom styles for this template
-//    link(href='../css/navbar-fixed-top.css', rel='stylesheet')
-//    link(href='../css/style.css', rel='stylesheet')
-//    script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-//append body
-div.container.row 
-    div.col-sm-6
-        h1 Where can I be reached ?
-        form(id="contactForm")
-            div.form-group
-                label User Identifier
-                input.form-control#uid(type='text', name="uid", placeholder='fluffy123', required='true')
-            div.form-group(id="divInputReTHINKID")
-                label Identity Domain
-                input.form-control(type='text', name="idpDomain", id="idpDomain", placeholder='google.com', required='true')
-            div.form-group    
-                label Service domain
-                input.form-control(type='text',name="serviceDomain", id="serviceDomain", placeholder='rethink.com', required='true')
-            div.form-group      
-                input#reTHINKCheck(type='checkbox', name="reTHINKCheck") 
-                label &nbsp;reTHINK service
-            button(type="submit" class="btnaddcontact btn btn-warning") Add domain 
+div.addDomain
+    h1 Where can I be reached ?
+    form(id="contactForm")
+        div.form-group
+            label User Identifier
+            input.form-control#uid(type='text', name="uid", placeholder='fluffy123', required='true')
+        div.form-group(id="divInputReTHINKID")
+            label Identity Domain
+            input.form-control(type='text', name="idpDomain", id="idpDomain", placeholder='google.com', required='true')
+        div.form-group    
+            label Service domain
+            input.form-control(type='text',name="serviceDomain", id="serviceDomain", placeholder='rethink.com', required='true')
+        div.form-group      
+            input#reTHINKCheck(type='checkbox', name="reTHINKCheck") 
+            label &nbsp;reTHINK service
+        button(type="submit" class="btnaddcontact btn btn-warning") Add domain 

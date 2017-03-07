@@ -43,13 +43,19 @@ append body
 					form
 						button(type="submit" class="btnpublish btn btn-warning") Publish in Global Registry
 					form
-						input#GUIDCheck(type='checkbox') 
-						label &nbsp;I already have a GUID
+						div.form-group
+							input#GUIDCheck(type='checkbox') 
+							label &nbsp;I already have a GUID
 						div.form-group(id="divInputGUID")
-							input#userGUID.form-control(type='text',name="inputGUID", placeholder='GUID', required='true')
-							input#inputPrKey.form-control(type='text',name="inputPrKey", placeholder='private key', required='true')
-							button(type="submit" class="btnimport btn btn-warning") Import GUID
-				
+							div.form-group
+								label Your Guid
+								input#userGUID.form-control(type='text',name="inputGUID", placeholder='GUID', required='true')
+							div.form-group
+								label Your Private Key
+								input#inputPrKey.form-control(type='text',name="inputPrKey", placeholder='private key', required='true')
+							div.form-group
+								button(type="submit" class="btnimport btn btn-warning") Import GUID
+		include addDomain.jade							
 	.col-sm-6
 		.well
 			h3 UserIds
@@ -60,5 +66,4 @@ append body
 								th uid
 								th domain
 						tbody
-	include addDomain.jade
-//			a(href='/users/addDomain' class="btn btn-xs btn-info") Add Domain
+	
