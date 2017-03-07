@@ -333,37 +333,6 @@ router.get('/getUserInfo', function(req, res, next) {
 });
 
 
-router.get('/getRoom/:id', function(req, res, next) {
-    var urlRequest = req.domainRegistryUrl + req.params.id;
-    request({
-            method: 'GET',
-            proxy: req.proxy,
-            uri: urlRequest,
-        },
-        function(error, response, body) {
-
-            if (response.statusCode != 200) {
-                console.log('error ' + response.statusCode);
-                console.log(JSON.stringify(response.body));
-                res.json({ url: '' });
-            } else {
-                if (response.body != '{}') {
-                    var roomList = JSON.parse(response.body);
-                    var idRoom;
-
-                    for (var room in roomList) {
-                        idRoom = room;
-                    }
-                    res.json({ url: req.webRTCUrl + 'room/' + idRoom });
-                } else {
-                    res.json({ url: '' });
-                }
-
-            }
-
-        });
-});
-
 function buildUidArray(record) {
     if (!record.legacyIDs) {
         record.legacyIDs = [];
@@ -406,6 +375,10 @@ function updateGlobalRegistryRecord(guid, req, res, next) {
                 } else {
                     if (!updateRecord.legacyIDs) {
                         updateRecord.legacyIDs = [];
+                    }
+                    if (idpDomain != "")
+                    {
+                        userId = "user://" + normalizeDomain(idpDomain) + "/" + req.body.uid;
                     }
                     updateRecord.legacyIDs.push({ "id": userId, "category": serviceDomain });
                 }
