@@ -10,8 +10,7 @@ $(document).ready(function() {
     // Add Contact event 
     addContactEvent();
 
-    //setTimeout(loadreThink, 3000);
-
+    loadRuntime();
 
 });
 
@@ -135,8 +134,9 @@ function getContactList() {
             var callSection = "<table >";
             if (typeof this.contactlist.uids !== 'undefined') {
                 $.each(JSON.parse(this.contactlist.uids), function() {
+                    var isRethink = false;
                     if (this.uid) {
-                        var isRethink = true;
+                        isRethink = true;
                     }
                     var id = isRethink ? this.uid : this.id;
                     var domain = this.domain ? this.domain : this.category;
@@ -184,16 +184,16 @@ function callUser(event) {
             url: 'https://' + aDomain + '/registry/' + targetId
         }).done(function(response) {
             if (response !== 'undefined') {
-                    var idRoom;
-                    for (var room in response) {
-                        idRoom = room;
-                    }
+                var idRoom;
+                for (var room in response) {
+                    idRoom = room;
+                }
                 window.open('https://' + aDomain + response[idRoom].url, '_blank');
             } else {
                 alert("Your contact is offline");
             }
         }).fail(function(err) {
-                alert("Your contact is offline");
+            alert("Your contact is offline");
         });
         return;
     }
@@ -203,20 +203,20 @@ function callUser(event) {
     }
 }
 
-function callHyperty(uid, dom) {
+function loadRuntime() {
     if (!RUNTIME) {
-        // Load the runtime
         registerDomain().then(function(result) {
-            // if successful load hyperty Connector
-            console.log("youpi");
-            loadHypertyConnector().then(function() {
-                proceedCall(uid, dom);
-            });
-
+            console.log("Runtime load !!");
         }).catch(function(err) {
             console.log(err);
         });
     } else {
-        proceedCall(uid, dom);
+        console.log("Runtime already load !!");
     }
+}
+
+function callHyperty(uid, dom) {
+    loadHypertyConnector().then(function() {
+        proceedCall(uid, dom);
+    });
 }
