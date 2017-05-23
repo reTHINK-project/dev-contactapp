@@ -78,6 +78,7 @@ router.post('/addcontact', function(req, res, next) {
         request({
                 method: 'GET',
                 proxy: req.proxy,
+                rejectUnauthorized: false,
                 uri: urlRequest,
             },
             function(error, response, body) {
@@ -130,6 +131,7 @@ router.post('/updatecontact/:id', function(req, res, next) {
             request({
                     method: 'GET',
                     proxy: req.proxy,
+                    rejectUnauthorized: false,
                     uri: urlRequest,
                 },
                 function(error, response, body) {
@@ -195,6 +197,7 @@ router.post('/addContactToGlobal', function(req, res, next) {
         request({
             proxy: req.proxy,
             method: 'PUT',
+            rejectUnauthorized: false,
             uri: urlRequest,
             headers: {
                 'Content-Length': jwt.length,
@@ -248,6 +251,7 @@ router.put('/globalcontact/', function(req, res, next) {
     request({
         proxy: req.proxy,
         method: 'PUT',
+        rejectUnauthorized: false,
         uri: urlRequest,
         headers: {
             'Content-Length': jwt.length,
@@ -286,6 +290,7 @@ router.put('/globalcontact/:guid', function(req, res, next) {
     request({
             method: 'GET',
             proxy: req.proxy,
+            rejectUnauthorized: false,
             uri: urlRequest,
         },
         function(error, response, body) {
@@ -314,7 +319,8 @@ router.get('/getUserInfo', function(req, res, next) {
     var guid = req.user.local.guid;
     var urlRequest = req.globalRegistryUrl + '/guid/' + guid;
     request({
-            method: 'GET',
+            method: 'GET', 
+            rejectUnauthorized: false,
             proxy: req.proxy,
             uri: urlRequest,
         },
@@ -352,6 +358,7 @@ function updateGlobalRegistryRecord(guid, req, res, next) {
     request({
             method: 'GET',
             proxy: req.proxy,
+            rejectUnauthorized: false,
             uri: urlRequest,
         },
         function(error, response, body) {
@@ -395,6 +402,7 @@ function updateGlobalRegistryRemoveRecord(guid, req, res, next) {
     request({
             method: 'GET',
             proxy: req.proxy,
+            rejectUnauthorized: false,
             uri: urlRequest,
         },
         function(error, response, body) {
@@ -443,6 +451,7 @@ function saveRecord(urlRequest, req, res, jwtHeader, updateRecord, privateKey) {
         proxy: req.proxy,
         method: 'PUT',
         uri: urlRequest,
+        rejectUnauthorized: false,
         headers: {
             'Content-Length': signJWT.length,
             'Content-Type': 'application/json'
